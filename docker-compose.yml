@@ -1,9 +1,20 @@
 services:
+  postgres:
+    container_name: postgresdb
+    image: postgres:17.0-alpine
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_DB: hermes_db
+      POSTGRES_PASSWORD: hermes_db
+      POSTGRES_USER: hermes_db
   hermes:
-    image: hermes
+    image: hermes-api
     build:
       context: .
       dockerfile: ./Dockerfile
     ports:
       - 8080:8080
     container_name: hermes-api
+    depends_on:
+      - postgres
