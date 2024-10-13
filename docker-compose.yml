@@ -4,15 +4,14 @@ services:
     image: postgres:17.0-alpine
     ports:
       - 5432:5432
-    environment:
-      POSTGRES_DB: hermes_db
-      POSTGRES_PASSWORD: hermes_db
-      POSTGRES_USER: hermes_db
+    env_file: .env
   hermes:
     image: hermes-api
+    env_file: .env
     build:
       context: .
       dockerfile: ./Dockerfile
+
     ports:
       - 8080:8080
     container_name: hermes-api
