@@ -8,6 +8,10 @@ spring:
     url: jdbc:postgresql://${POSTGRES_HOST}:5432/${POSTGRES_DB}
     username: ${POSTGRES_USER}
     password: ${POSTGRES_PASSWORD}
+    hikari:
+      maximum-pool-size: 5
+      connection-timeout: 5000
+      minimum-idle: 1
   jpa:
     hibernate:
       ddl-auto: none
