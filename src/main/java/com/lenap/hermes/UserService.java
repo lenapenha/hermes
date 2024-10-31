@@ -1,13 +1,20 @@
 package com.lenap.hermes;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import com.lenap.hermes.utils.PasswordHash;
 import org.springframework.stereotype.Service;
 
 @Service
 public class UserService {
-    @Autowired UserRepository userRepository;
+    private final UserRepository userRepository;
 
-    public User saveNewUser(User user) {
-        return userRepository.save(user);
+    public UserService(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
+
+    public UserRecord saveNewUser(User user) {
+        user.setPassword(PasswordHash.encrypt(user.getPassword()));
+        User saved = userRepository.save(user);
+
+        return new UserRecord(saved.getId(), saved.getUsername(), saved.getEmail());
     }
 }

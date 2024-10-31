@@ -18,7 +18,7 @@ public class UserResource {
     }
 
     @PostMapping()
-    public ResponseEntity<User> createUser(@RequestBody User user) {
+    public ResponseEntity<UserRecord> createUser(@RequestBody User user) {
         return ResponseEntity.status(HttpStatus.CREATED).body(userService.saveNewUser(user));
     }
 }
