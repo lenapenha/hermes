@@ -1,4 +1,4 @@
-package com.lenap.hermes;
+package com.lenap.hermes.user;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

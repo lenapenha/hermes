@@ -1,4 +1,4 @@
-package com.lenap.hermes;
+package com.lenap.hermes.user;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;

@@ -1,4 +1,4 @@
-package com.lenap.hermes;
+package com.lenap.hermes.user;
 
 import jakarta.persistence.*;
 
@@ -22,19 +22,8 @@ public class User {
     public User() {
     }
 
-    public User(Long id, String username, String password, String email) {
-        this.id = id;
-        this.username = username;
-        this.password = password;
-        this.email = email;
-    }
-
     public Long getId() {
         return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public String getUsername() {
