@@ -2,7 +2,6 @@ package com.lenap.hermes.user;
 
 import com.lenap.hermes.exception.ConflictException;
 import com.lenap.hermes.utils.PasswordHash;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 @Service
