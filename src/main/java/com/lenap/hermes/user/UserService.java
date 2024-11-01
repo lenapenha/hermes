@@ -18,7 +18,7 @@ public class UserService {
         User saved =  new User();
         try {
             saved = userRepository.save(user);
-        } catch (DataIntegrityViolationException e) {
+        } catch (RuntimeException e) {
            if (e.getMessage().startsWith("could not execute statement [ERROR: duplicate key value violates unique constraint")) {
                throw new ConflictException("This user already exists");
            }
