@@ -4,6 +4,8 @@ import com.lenap.hermes.exception.ConflictException;
 import com.lenap.hermes.utils.PasswordHash;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public class UserService {
     private final UserRepository userRepository;
@@ -13,15 +15,12 @@ public class UserService {
     }
 
     public UserRecord saveNewUser(User user) {
-        user.setPassword(PasswordHash.encrypt(user.getPassword()));
-        User saved =  new User();
-        try {
-            saved = userRepository.save(user);
-        } catch (RuntimeException e) {
-           if (e.getMessage().startsWith("could not execute statement [ERROR: duplicate key value violates unique constraint")) {
-               throw new ConflictException("This user already exists");
-           }
+        Optional<User> userDb = Optional.ofNullable(userRepository.findByUsername(user.getUsername()));
+        if (userDb.isPresent()) {
+           throw new ConflictException("This user already exists");
         }
-        return new UserRecord(saved.getId(), saved.getUsername(), saved.getEmail());
+        user.setPassword(PasswordHash.encrypt(user.getPassword()));
+        User newUser = userRepository.save(user);
+        return new UserRecord(newUser.getId(), newUser.getUsername(), newUser.getEmail());
     }
 }
