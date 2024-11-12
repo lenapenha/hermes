@@ -40,11 +40,11 @@ public class JwtUtil {
     }
 
     private static Claims getClaims(String token) {
-        return Jwts.parser().verifyWith(getSigningKey()).build().parseClaimsJws(token).getPayload();
+        return Jwts.parser().verifyWith(getSigningKey()).build().parseSignedClaims(token).getPayload();
     }
 
     private static JwsHeader getHeader(String token) {
-        return Jwts.parser().verifyWith(getSigningKey()).build().parseClaimsJws(token).getHeader();
+        return Jwts.parser().verifyWith(getSigningKey()).build().parseSignedClaims(token).getHeader();
     }
 
     private static SecretKey getSigningKey() {
