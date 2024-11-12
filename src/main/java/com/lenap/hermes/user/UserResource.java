@@ -21,4 +21,9 @@ public class UserResource {
     public ResponseEntity<UserRecord> createUser(@RequestBody User user) {
         return ResponseEntity.status(HttpStatus.CREATED).body(userService.saveNewUser(user));
     }
+
+    @PostMapping("/login")
+    public ResponseEntity<?> login(@RequestBody LoginRecord loginInfo) {
+        return ResponseEntity.status(HttpStatus.ACCEPTED).body(userService.login(loginInfo));
+    }
 }

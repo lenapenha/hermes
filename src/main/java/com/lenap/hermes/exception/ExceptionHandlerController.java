@@ -20,6 +20,12 @@ public class ExceptionHandlerController {
                 .body(new ErrorResponse("Conflict", ex.getMessage()));
     }
 
+    @ExceptionHandler(IllegalArgumentException.class)
+    public ResponseEntity<ErrorResponse> badRequest(IllegalArgumentException ex) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                .body(new ErrorResponse("Bad Request", ex.getMessage()));
+    }
+
     public static class ErrorResponse{
         private final String message;
 
