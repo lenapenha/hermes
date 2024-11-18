@@ -42,4 +42,12 @@ public class UserService {
 
         return new AuthenticatedUserRecord(token);
     }
+
+    public UserRecord getUserDetails(String username) {
+        Optional<User> userDb = Optional.ofNullable(userRepository.findByUsername(username));
+        if (userDb.isEmpty()) {
+            throw new IllegalArgumentException();
+        }
+        return new UserRecord(userDb.get().getId(), userDb.get().getUsername(), userDb.get().getEmail());
+    }
 }
