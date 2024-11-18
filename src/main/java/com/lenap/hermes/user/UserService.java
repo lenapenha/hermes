@@ -9,10 +9,13 @@ import java.util.Optional;
 
 @Service
 public class UserService {
+
+    private final JwtUtil jwtUtil;
     private final UserRepository userRepository;
 
-    public UserService(UserRepository userRepository) {
+    public UserService(UserRepository userRepository, JwtUtil jwtUtil) {
         this.userRepository = userRepository;
+        this.jwtUtil = jwtUtil;
     }
 
     public UserRecord saveNewUser(User user) {
@@ -35,7 +38,7 @@ public class UserService {
             throw new IllegalArgumentException("Invalid username or password");
         }
 
-        String token = JwtUtil.getToken(loginInfo.username());
+        String token = jwtUtil.getToken(loginInfo.username());
 
         return new AuthenticatedUserRecord(token);
     }
