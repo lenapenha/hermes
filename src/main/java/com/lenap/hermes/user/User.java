@@ -1,6 +1,10 @@
 package com.lenap.hermes.user;
 
 import jakarta.persistence.*;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+
+import java.sql.Date;
 
 @Entity
 @Table(name = "`user`")
@@ -18,6 +22,12 @@ public class User {
 
     @Column(nullable = false)
     private String email;
+
+    @CreationTimestamp
+    private Date createdAt;
+
+    @UpdateTimestamp
+    private Date updatedAt;
 
     public User() {
     }
