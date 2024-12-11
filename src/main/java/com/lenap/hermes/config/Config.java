@@ -6,8 +6,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.core.Ordered;
 import org.springframework.core.env.Environment;
 
-import java.util.logging.Filter;
-
 @Configuration
 public class Config {
 
