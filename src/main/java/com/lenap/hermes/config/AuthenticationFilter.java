@@ -34,20 +34,23 @@ public class AuthenticationFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request, @NonNull HttpServletResponse response,
                                     @NonNull FilterChain filterChain) throws ServletException, IOException {
 
-        final String authHeader = request.getHeader("Authorization");
-
-        if (StringUtils.isEmpty(authHeader) || !authHeader.startsWith("Bearer ")) {
-            response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Unauthorized");
-            return;
-        }
-
-        String token = authHeader.substring(7);
-        try {
-            String username = jwtUtil.getUsername(token);
-            if (username != null) request.setAttribute("username", username);
+        if (request.getMethod().equals("OPTIONS")) {
             filterChain.doFilter(request, response);
-        } catch (Exception e) {
-            response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Unauthorized");
+        } else {
+            final String authHeader = request.getHeader("Authorization");
+            if (StringUtils.isEmpty(authHeader) || !authHeader.startsWith("Bearer ")) {
+                response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Unauthorized");
+                return;
+            }
+
+            String token = authHeader.substring(7);
+            try {
+                String username = jwtUtil.getUsername(token);
+                if (username != null) request.setAttribute("username", username);
+                filterChain.doFilter(request, response);
+            } catch (Exception e) {
+                response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Unauthorized");
+            }
         }
     }
 }
